@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Advanced Gallery</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #111;
+    color: #fff;
+    scroll-behavior: smooth;
+  }
+
+  nav {
+    background: #000;
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    border-bottom: 1px solid #333;
+  }
+  nav button {
+    background: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    margin: 0 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  nav button:hover, nav button.active {
+    color: #ff9800;
+  }
+
+  h2 {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 2rem;
+    color: #ff9800;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+    padding: 20px;
+    transition: opacity 0.4s ease;
+
+  }
+  .gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Increased min size */
+  gap: 18px; /* Slightly bigger gap */
+  padding: 20px;
+  transition: opacity 0.4s ease;
+}
+
+.gallery img {
+  width: 100%;
+  height: 250px; /* Fixed height for bigger display */
+  object-fit: cover; /* Maintains aspect ratio and fills frame */
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+
+  .gallery img {
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery img:hover {
+    transform: scale(1.05);
+  }
+
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0; top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .lightbox.active {
+    display: flex;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .lightbox img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+  }
+
+  .caption {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    text-align: center;
+    color: #ccc;
+  }
+
+  .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    user-select: none;
+  }
+  .nav-btn.left { left: 20px; }
+  .nav-btn.right { right: 20px; }
+
+  .close-btn {
+    position: absolute;
+    top: 20px; right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    background: rgba(0,0,0,0.6);
+    padding: 10px;
+    border-radius: 50%;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <button class="active" data-filter="all">All</button>
+  <button data-filter="movies">Movies</button>
+  <button data-filter="anime">Anime</button>
+  <button data-filter="nature">Nature</button>
+</nav>
+
+<h2>Gallery</h2>
+<div class="gallery">
+  <!-- Movies -->
+  <img  src="https://lh3.googleusercontent.com/d/1yVmd1H8EGMXE4R2ZiDqYCyXNUGQ9ErxS=w410-h230-p-k-no-nu-rw" alt="Batman" data-caption="The Batman" data-category="movies">
+  <img  src="https://lh3.googleusercontent.com/d/1pIwBeE34pTkenin6aj9pu4MhYuNiOrrf=w410-h230-p-k-no-nu-rw" alt="Joker" data-caption="Joker 2019" data-category="movies">
+  <img  src="https://lh3.googleusercontent.com/d/1H7z8Mw8Vwy4BuZOONi-EPnsU2cYaT2ab=w410-h230-p-k-no-nu-rw" alt="Avengers" data-caption="Avengers Assemble" data-category="movies">
+  <img  src="https://wallpapercg.com/media/ts_2x/8937.webp" alt="Spider-Man" data-caption="Spider-Man No Way Home" data-category="movies">
+  <img  src="https://lh3.googleusercontent.com/d/1MGyyQPQYXYtkJe1DA4CrN-zz--YC-hZ3=w410-h230-p-k-no-nu-rw" alt="Avengers" data-caption="Avengers Assemble" data-category="movies">
+  <img  src="https://lh3.googleusercontent.com/d/1tOrIFRcCYgdZxyj-e8FeJWX__BgAF-Pm=w410-h230-p-k-no-nu-rw" alt="Avengers" data-caption="Avengers Assemble" data-category="movies">
+  <img  src="https://lh3.googleusercontent.com/d/1zFK5cUTHxNBQbE7-RdC7BmZtz4ib7-k0=w410-h230-p-k-no-nu-rw" alt="Avengers" data-caption="Avengers Assemble" data-category="movies">
+  <img  src="https://lh3.googleusercontent.com/d/1_xTeorF4dFhGkaqFWt1U4Jnaac0mKVWX=w410-h230-p-k-no-nu-rw" alt="Spider-Man" data-caption="Spider-Man No Way Home" data-category="movies">
+  
+  <!-- Anime -->
+  <img  src="https://lh3.googleusercontent.com/d/15gTD6BGuM0hF6D9M8d3EHyGWw4OqLRh2=w410-h230-p-k-no-nu-rw" alt="" data-caption="Eren Yeager - AoT" data-category="anime">
+  <img  src="https://4kwallpapers.com/images/walls/thumbs/10747.jpg" alt="One Piece" data-caption="Luffy Gear 5" data-category="anime">
+  <img  src="https://lh3.googleusercontent.com/d/1P8Ljxr1yD35vEH8M0MbgusAWAvd56PGV=w410-h230-p-k-no-nu-rw" alt="Naruto" data-caption="Naruto & Kurama" data-category="anime">
+  <img src="https://lh3.googleusercontent.com/d/1SYg4rNdeCP945NziwUYW3ZHl3xPlxrx6=w410-h230-p-k-no-nu-rw" alt="" data-caption="" data-category="anime">
+   <img  src="https://lh3.googleusercontent.com/d/12c4gHiPtZcVbjhQfA2iT8RzMRQAerbzf=w410-h230-p-k-no-nu-rw" alt="" data-caption="Eren Yeager - AoT" data-category="anime">
+  <img  src="https://lh3.googleusercontent.com/d/1Q4oLE0nXXTviA1Q-XIxPKc1eRAvpdUa6=w410-h230-p-k-no-nu-rw" alt="One Piece" data-caption="Luffy Gear 5" data-category="anime">
+  <img  src="https://lh3.googleusercontent.com/d/1clmOL23g6syVDlJnm8l641k8SbL_HzlY=w410-h230-p-k-no-nu-rw" alt="Naruto" data-caption="Naruto & Kurama" data-category="anime">
+  <img  src="https://lh3.googleusercontent.com/d/1aZdKjFcPS3pj4PPxtTD9PtzTgP5HiA5k=w410-h230-p-k-no-nu-rw" alt="Naruto" data-caption="Naruto & Kurama" data-category="anime">
+
+    <!-- Nature -->
+  <img  src="https://lh3.googleusercontent.com/d/1n_y9oZa4psSC68PxqgKIZ8qh0L3z14_k=w410-h230-p-k-no-nu-rw" alt="Mountains" data-caption="" data-category="nature">
+  <img  src="https://lh3.googleusercontent.com/d/11kG0KGVH-mrIY_MDfM2gdoZkvltmOevR=w410-h230-p-k-no-nu-rw" alt="Forest" data-caption="" data-category="nature">
+  <img  src="https://lh3.googleusercontent.com/d/1VTO45Or4XfHM5ui0Sc7wKr9vYtg9dquo=w410-h230-p-k-no-nu-rw" alt="Ocean" data-caption="" data-category="nature">
+  <img  src="https://lh3.googleusercontent.com/d/15lj-wyAWew8gxDBWxYyJQvl7drDpggpI=w410-h230-p-k-no-nu-rw" alt="Desert" data-caption="" data-category="nature">
+  
+  <img  src="https://lh3.googleusercontent.com/d/1-aUYOZ9YtYU7cYvnGqIhXlUqZNsH3UT_=w410-h230-p-k-no-nu-rw" alt="Ocean" data-caption="" data-category="nature">
+  
+  <img  src="https://lh3.googleusercontent.com/d/1CARAMpoonp0k0zYP39Eb4fqJg46kSOmE=w410-h230-p-k-no-nu-rw" alt="Ocean" data-caption="" data-category="nature">
+  
+  <img  src="https://lh3.googleusercontent.com/d/12huXkRGKgAOKwsYQyR987KiQj5Wp-K3o=w410-h230-p-k-no-nu-rw" alt="Ocean" data-caption="" data-category="nature">
+  <img  src="https://lh3.googleusercontent.com/d/15YHj4qB25-6puMktN4mZ5jJAMeAIXNlI=w410-h230-p-k-no-nu-rw" alt="Ocean" data-caption="" data-category="nature">
+  
+</div>
+
+<div class="lightbox">
+  <span class="close-btn">&times;</span>
+  <span class="nav-btn left">&#10094;</span>
+  <img src="" alt="" />
+  <span class="nav-btn right">&#10095;</span>
+  <div class="caption"></div>
+</div>
+
+<script>
+const filterButtons = document.querySelectorAll('nav button');
+const images = document.querySelectorAll('.gallery img');
+const gallery = document.querySelector('.gallery');
+
+filterButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.getAttribute('data-filter');
+    gallery.style.opacity = '0';
+    setTimeout(() => {
+      images.forEach(img => {
+        img.style.display = (filter === 'all' || img.dataset.category === filter) ? 'block' : 'none';
+      });
+      gallery.style.opacity = '1';
+    }, 300);
+  });
+});
+
+// Lightbox
+let currentImages = [];
+let currentIndex = 0;
+const lightbox = document.querySelector('.lightbox');
+const lightboxImg = document.querySelector('.lightbox img');
+const caption = document.querySelector('.caption');
+const closeBtn = document.querySelector('.close-btn');
+const nextBtn = document.querySelector('.nav-btn.right');
+const prevBtn = document.querySelector('.nav-btn.left');
+
+function showImage(index) {
+  lightboxImg.src = currentImages[index].src;
+  caption.textContent = currentImages[index].dataset.caption || currentImages[index].alt;
+  currentIndex = index;
+  lightbox.classList.add('active');
+}
+
+images.forEach(img => {
+  img.addEventListener('click', () => {
+    const activeCategory = document.querySelector('nav button.active').dataset.filter;
+    currentImages = Array.from(images).filter(i => activeCategory === 'all' || i.dataset.category === activeCategory);
+    currentIndex = currentImages.indexOf(img);
+    showImage(currentIndex);
+  });
+});
+
+closeBtn.addEventListener('click', () => lightbox.classList.remove('active'));
+nextBtn.addEventListener('click', () => showImage((currentIndex + 1) % currentImages.length));
+prevBtn.addEventListener('click', () => showImage((currentIndex - 1 + currentImages.length) % currentImages.length));
+
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('active')) return;
+  if (e.key === 'ArrowRight') nextBtn.click();
+  if (e.key === 'ArrowLeft') prevBtn.click();
+  if (e.key === 'Escape') closeBtn.click();
+});
+</script>
+</body>
+</html>
